@@ -1,0 +1,82 @@
+￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
+我的github账号： CX-SteelArm 979234374@qq.com Xuchao888
+
+￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
+--------------------------------
+常用linux命令：
+
+    pwd: 显示当前目录
+
+    touch: 创建一个文件
+
+    mv A B: 可以用于修改文件名
+
+--------------------------------
+vim指令系列：
+--------------------------------
+git操作：
+
+    初始化一个Git仓库，使用git init命令。
+
+    添加文件到Git仓库，分两步：
+
+    第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；或者git add .添加所有文件。
+
+    第二步，使用命令git commit，完成。git commit -m "append GPL" （-m 可以添加提交的注释）
+--------------------------------
+
+    要随时掌握工作区的状态，使用git status命令。
+
+    如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+
+    git log查看文件经过的状态
+
+    git reflog用来记录你的每一次命令
+
+    git log --pretty=oneline 显示历史提交文件的commit id（版本号），每个版本号都是唯一的。
+    
+    在Git中，用HEAD表示当前版本，也就是最新的提交3628164...882e1e0（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+   
+    git reset --hard HEAD^ 版本回退
+
+    如果想要继续回到后一个版本，使用 git reset --hard 3628164（版本号的前几位，不需要全部写完）
+--------------------------------
+    工作区： 工作文件夹
+    
+    暂存区： add之后文件的位置
+
+    分支（master）： 文件最后提交的位置
+--------------------------------
+    git checkout -- file可以丢弃工作区的修改
+
+    git reset HEAD file可以把暂存区的修改撤销掉
+--------------------------------
+    git checkout -- test.txt 误删除恢复
+
+    git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”
+
+    git rm test.txt
+
+    git commit -m "remove test.txt"
+
+    删除文件的操作
+--------------------------------
+    远程仓库：
+
+    第1步：创建SSH Key        ssh-keygen -t rsa -C "youremail@example.com" 然后一路回车
+
+    如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+    第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面， 然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容， 点“Add Key”，你就应该看到已经添加的Key。
+--------------------------------
+    关联仓库：
+
+    1. git remote add origin（远程库名称） git@github.com:XXXXXXX（Github账户名）/learngit（仓库名）.git
+
+    2. git push -u origin master 推送，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+--------------------------------
+    从零开发克隆仓库：
+
+    1. 在github创建一个仓库，如gitskill
+
+    2. git clone git@github.com:michaelliao/gitskills（仓库名）.git
