@@ -1,4 +1,4 @@
-----------------------
+﻿----------------------
 准备工作：
 
 1 使用<canvas id="id" style="">XXXX</canvas>类似的方式创建一块新的画布（XXXX表示如果浏览器不支持canvas屏幕上出现的东西）
@@ -63,9 +63,9 @@ cxt.fillRect(x, y, w, h) 绘制一个填充矩形（这条命令不会考虑线�
 ----------------------
 线条的属性：
 
-lineCap: 线条头部的形状，有butt(default), round, square三种取值，round是圆头，square是方头，只对头部有效，对相互连接线段的连接部无效
+cxt.lineCap = string: 线条头部的形状，有butt(default), round, square三种取值，round是圆头，square是方头，只对头部有效，对相互连接线段的连接部无效
 
-lineJoin: 线条连接的样式，有miter(default), bevel, round三种取值，miter是尖角；bevel是斜接，线条的顶端不会延伸，而是会形成一个角；round是圆角，在连接部使用圆角光滑过渡。
+cxt.lineJoin = string: 线条连接的样式，有miter(default), bevel, round三种取值，miter是尖角；bevel是斜接，线条的顶端不会延伸，而是会形成一个角；round是圆角，在连接部使用圆角光滑过渡。
 
-cxt有miterLimit属性，一旦尖角延伸的像素值超过这个属性值，则会使用bevel方式进行绘制
+cxt.miterLimit = number，一旦尖角延伸的像素值超过这个属性值，则会使用bevel方式进行绘制
 
