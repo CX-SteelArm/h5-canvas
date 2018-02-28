@@ -77,6 +77,12 @@ function render(cxt, dt){
 	if(parseInt(hour%10) !== parseInt(l_hour%10)){
 		createBall(x+130, y, parseInt(hour%10));
 	}
+	if(parseInt(min/10) !== parseInt(l_min/10)){
+		createBall(x, y, parseInt(min/10));
+	}
+	if(parseInt(min%10) !== parseInt(l_min%10)){
+		createBall(x+130, y, parseInt(min%10));
+	}
 	if(parseInt(sec/10) !== parseInt(l_sec/10)){
 		createBall(x+640, y, parseInt(sec/10));
 	}
