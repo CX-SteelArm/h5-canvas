@@ -1,7 +1,8 @@
-const WIN_WIDTH = 1024;
-const WIN_HEIGHT = 768;
-const RADIUS = 7;
-const GAP = 3;
+var WIN_WIDTH = 1024;
+var WIN_HEIGHT = 768;
+var MG_LEFT = 32;
+var MG_TOP = 65;
+var RADIUS = 6;
 const START_TIME = parseInt(new Date().getTime() / 100000000)*100000000
 
 var balls = [];
@@ -9,6 +10,12 @@ var colors = ["#aa3344", "#aa4466", "#00ccff", "#1e4fc1", "3f4dad", "eeff33", "a
 var dt = 50;
 
 window.onload = function(){
+	WIN_WIDTH = document.documentElement.clientWidth;
+	WIN_HEIGHT = document.documentElement.clientHeight;
+	MG_LEFT = parseInt(WIN_WIDTH/10);
+	MG_TOP = parseInt(WIN_HEIGHT/5);
+	RADIUS = 4/5*WIN_WIDTH/140;
+	
 	var canvas = document.getElementById("canvas");
 	var context = canvas.getContext('2d');
 	canvas.width = WIN_WIDTH;
@@ -27,7 +34,7 @@ function update(){
 		b.y += b.vy;
 		if(b.y+b.r >= WIN_HEIGHT){
 			b.y = WIN_HEIGHT-b.r;
-			b.vy = -b.vy*0.4;
+			b.vy = -b.vy*0.6;
 		}
 	}
 	
@@ -49,7 +56,7 @@ function update(){
 }
 
 function render(cxt, dt){
-	var x = 80, y = 80;
+	var x = MG_LEFT, y = MG_TOP;
 	var curtime = new Date().getTime();
 	var t = parseInt((curtime-START_TIME)/1000);
 	var l_t = parseInt((curtime-dt-START_TIME)/1000);
@@ -63,31 +70,31 @@ function render(cxt, dt){
 	cxt.clearRect(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	
 	drawNumber(x, y, parseInt(hour/10), cxt);
-	drawNumber(x+130, y, hour%10, cxt);
-	drawNumber(x+260, y, 10, cxt);
-	drawNumber(x+320, y, parseInt(min/10), cxt);
-	drawNumber(x+450, y, min%10, cxt);
-	drawNumber(x+580, y, 10, cxt);
-	drawNumber(x+640, y, parseInt(sec/10), cxt);
-	drawNumber(x+770, y, sec%10, cxt);
+	drawNumber(x+20*RADIUS, y, hour%10, cxt);
+	drawNumber(x+40*RADIUS, y, 10, cxt);
+	drawNumber(x+50*RADIUS, y, parseInt(min/10), cxt);
+	drawNumber(x+70*RADIUS, y, min%10, cxt);
+	drawNumber(x+90*RADIUS, y, 10, cxt);
+	drawNumber(x+100*RADIUS, y, parseInt(sec/10), cxt);
+	drawNumber(x+120*RADIUS, y, sec%10, cxt);
 	
 	if(parseInt(hour/10) !== parseInt(l_hour/10)){
 		createBall(x, y, parseInt(hour/10));
 	}
 	if(parseInt(hour%10) !== parseInt(l_hour%10)){
-		createBall(x+130, y, parseInt(hour%10));
+		createBall(x+20*RADIUS, y, parseInt(hour%10));
 	}
 	if(parseInt(min/10) !== parseInt(l_min/10)){
-		createBall(x, y, parseInt(min/10));
+		createBall(x+50*RADIUS, y, parseInt(min/10));
 	}
 	if(parseInt(min%10) !== parseInt(l_min%10)){
-		createBall(x+130, y, parseInt(min%10));
+		createBall(x+70*RADIUS, y, parseInt(min%10));
 	}
 	if(parseInt(sec/10) !== parseInt(l_sec/10)){
-		createBall(x+640, y, parseInt(sec/10));
+		createBall(x+100*RADIUS, y, parseInt(sec/10));
 	}
 	if(parseInt(sec%10) !== parseInt(l_sec%10)){
-		createBall(x+770, y, parseInt(sec%10));
+		createBall(x+120*RADIUS, y, parseInt(sec%10));
 	}
 	
 	for(var i=0; i<balls.length; i++){
@@ -104,8 +111,8 @@ function createBall(x, y, n, cxt){
 		for(var j=0; j<digit[n][0].length; j++){
 			if(digit[n][i][j] === 1){
 				balls.push({
-					x: x+j*(2*RADIUS+GAP),
-					y: y+i*(2*RADIUS+GAP),
+					x: x+j*2.5*RADIUS,
+					y: y+i*2.5*RADIUS,
 					r: RADIUS,
 					vx: Math.random() > 0.5 ? 4 : -4,
 					vy: -4,
@@ -122,7 +129,7 @@ function drawNumber(x, y, n, cxt){
 	for(var i=0; i<digit[n].length; i++){
 		for(var j=0; j<digit[n][0].length; j++){
 			if(digit[n][i][j] === 1){
-				drawCircle(x+j*(2*RADIUS+GAP), y+i*(2*RADIUS+GAP), cxt)
+				drawCircle(x+j*2.5*RADIUS, y+i*2.5*RADIUS, cxt)
 			}
 		}
 	}

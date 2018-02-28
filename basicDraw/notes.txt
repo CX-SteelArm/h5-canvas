@@ -1,0 +1,71 @@
+----------------------
+准备工作：
+
+1 使用<canvas id="id" style="">XXXX</canvas>类似的方式创建一块新的画布（XXXX表示如果浏览器不支持canvas屏幕上出现的东西）
+
+2 通过<script type="text/javascript" src="xx.js"></script>引用脚本文件以操作canvas
+
+3 通过document.getElementById获取canvas对象，然后使用canvas对象的getContext('2d')方法获取一个2d上下文。
+
+4 
+
+----------------------
+绘画的相关函数：
+
+var cxt = canvas.getContext('2d');
+
+cxt.moveTo(x, y): 移动笔触到一个点
+
+cxt.lineTo(x, y): 画直线直到一个点
+
+cxt.beginPath(): 开始一条新的路径绘制工作（如果有lineTo直接接在这条命令后，相当于moveTo的功能）
+
+cxt.closePath(): 自动闭合路径（在起点和终点之间无缝连接，闭合路径、绘制多边形强烈推荐使用这个）
+
+cxt.stroke(): 绘画函数
+
+cxt.fill(): 填充函数
+
+cxt.fillStyle = color, 填充颜色的设置
+
+cxt.strokeStyle = color, 绘画颜色的设置
+
+cxt.lineWidth = number, 绘画线条的粗细
+
+！！！
+canvas是基于状态绘图，绘制下一条路径时要使用cxt.beginPath()函数，不然之前的路径会被重新绘制
+
+fill操作需要在stroke之前执行，否则绘出的线条宽度只有设定值的一半。
+----------------------
+color的表示方法：
+
+1. #ffffff 十六进制码
+
+2. #fff 简写
+
+3. rgb(233,233,34)
+
+4. rgba(233,233,23,233)
+
+5. hsl(20, 60%, 34%)
+
+6. hsla()
+
+7. red, black, yellow...
+----------------------
+矩形绘制的相关函数：
+
+cxt.rect(x, y, w, h) 绘制一个矩形路径
+
+cxt.strokeRect(x, y, w, h) 绘制一个矩形框
+
+cxt.fillRect(x, y, w, h) 绘制一个填充矩形（这条命令不会考虑线条宽度，所以在绘制有框矩形时仍然要先使用stroke，再使用fill）
+----------------------
+线条的属性：
+
+lineCap: 线条头部的形状，有butt(default), round, square三种取值，round是圆头，square是方头，只对头部有效，对相互连接线段的连接部无效
+
+lineJoin: 线条连接的样式，有miter(default), bevel, round三种取值，miter是尖角；bevel是斜接，线条的顶端不会延伸，而是会形成一个角；round是圆角，在连接部使用圆角光滑过渡。
+
+cxt有miterLimit属性，一旦尖角延伸的像素值超过这个属性值，则会使用bevel方式进行绘制
+
