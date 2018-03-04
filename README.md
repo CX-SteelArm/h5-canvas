@@ -34,8 +34,8 @@ html5-canvas学习记录
 			-> 设置新工程fontTest，打算做一个字体演示，使用Web安全字体。
 ----------------------
 2018-03-04 完成字体工程演示
-			-> 对cxt.textAlign和cxt.textBaseline的理解需要深入
+			对cxt.textAlign和cxt.textBaseline的理解需要深入
 			
-			-> 熟悉对于选择型控件的制作
+			熟悉对于选择型控件的制作
 			
 			![image](https://github.com/CX-SteelArm/h5-canvas/blob/master/fontTest/font-test.gif)
