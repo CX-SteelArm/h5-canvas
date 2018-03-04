@@ -1,0 +1,29 @@
+----------------------
+重写星星函数：
+
+1. 实现基本的绘制函数；
+
+2. 由图形变换函数得到最终效果；
+
+----------------------
+基本函数：
+
+translate(x, y) rotate(deg) scale(sx, sy) 这些函数只会对源码中在其后面的路径产生影响
+
+执行操作之后需要复位translage(-x, -y)之类的操作
+
+cxt.save() cxt.restore() 保存、复位状态(在这之间设置的一切状态都不会作用在之后，包括fillStyle之类)
+
+！！！scale会产生一些负效果： 坐标起点会发生变化、线宽也会随着scale值变化（对于线段也一样）
+
+transform(a, b, c, d, e, f): 变换矩阵
+		a, c, e
+		b, d, f
+		0, 0, 1
+a, d控制scale
+b, c控制斜切（不是旋转）
+e, f控制translate
+
+每次使用transform状态都会叠加，使用setTransform可以无视掉之前的transform状态。
+
+setTransform(1, 0, 0, 1, 0, 0)

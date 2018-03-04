@@ -1,0 +1,28 @@
+------------------
+学习曲线的绘制方法
+
+1. 基本的弧线
+
+cxt. arc(x, y, r, as, es, anticlockwise=false);
+
+2. arcTo
+
+cxt.arcTo(x1, y1, x2, y2, r);
+
+(x1, y1)是控制点，所画的弧线与line(x0, y0, x1, y1) 和 line(x1, y1, x2, y2)均相切，半径为r
+
+！！！ (x0, y0)不一定为起始点，(x2, y2)也不一定为结束点
+
+3. 二次贝塞尔曲线
+
+cxt.quadraticCurveTo(x1, y1, x2, y2);
+
+(x1, y1)是控制点，曲线经过(x0, y0)和(x2, y2),形成一条光滑的曲线
+
+4. 三次贝塞尔曲线
+
+cxt.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+
+(x1, y1)和(x1, y2)是控制点，曲线经过(x0, y0)和(x3, y3)，形成一条光滑的曲线
+
+（（类似钢笔工具？？））
