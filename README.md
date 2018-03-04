@@ -38,4 +38,4 @@ html5-canvas学习记录
 			
 			-> 熟悉对于选择型控件的制作
 			
-			-> ![image](https://github.com/CX-SteelArm/h5-canvas/blob/master/fontTest/font-test.gif)
+			![image](https://github.com/CX-SteelArm/h5-canvas/blob/master/fontTest/font-test.gif)
