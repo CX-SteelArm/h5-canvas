@@ -36,8 +36,9 @@ html5-canvas学习记录
 			
 ----------------------
 2018-03-04 完成字体工程演示
-			-> 对cxt.textAlign和cxt.textBaseline的理解需要深入
+			对cxt.textAlign和cxt.textBaseline的理解需要深入
 			
+<<<<<<< HEAD
 			-> 熟悉对于选择型控件的制作
 			
 			-> 学习增加的内容，创建complements文件夹
@@ -48,3 +49,8 @@ html5-canvas学习记录
 2018-03-05 
 			-> 完成恐怖房间工程和阴影demo
 ----------------------
+=======
+			熟悉对于选择型控件的制作
+			
+			![image](https://github.com/CX-SteelArm/h5-canvas/blob/master/fontTest/font-test.gif)
+>>>>>>> 4a80a986cb372979980e5c7c2ce6149b456a1610
