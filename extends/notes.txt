@@ -1,0 +1,59 @@
+------------------------
+1. 在Canvas上使用其他控件
+
+原理： 将canvas和控件放在一个div中，将此div的position设置为relative，然后将控件的position设置为absolute，让它相对于div设置位置。使用css3可以实现非常棒的设计（预备做一个demo）。
+------------------------
+2. canvas标准的两个查阅位置
+
+http://www.w3c.org/TR/2dcontext/
+
+http://html/spec/whatwg.org/
+------------------------
+3. 扩展cavas的context
+
+canvas.getContext() ----- new CanvasRenderingContext2D()
+
+所以直接CanvasRenderingContext2D.prototype.xxx = function(){
+	this.beginPath();
+	...
+};
+
+就可以扩展context
+
+** 也可以修改原本的API
+var originalMoveTo = CanvasRenderingContext2D.prototype.moveTo;
+CanvasRenderingContext2D.svlist = [];
+CanvasRenderingContext2D.prototype.moveTo = function(x, y){
+	originalMoveTo.apply(cxt, [x,y]);
+	// 保存在一个数组中
+	this.svlist.push(x);
+	this.svlist.push(y);
+}
+
+------------------------
+4. 浏览器兼容性
+
+canvas在不断地更新，有些浏览器支持某些属性，有些则不支持
+
+IE6、7、8：
+
+http://code.google.com/p/explorercanvas/引用第三方库
+
+------------------------
+5. Canvas图形库
+连接借口设计，借鉴学习，制作自己的库
+canvasplus:
+http://code.google.com/p/canvasplus/
+
+artisan ja:
+http://artisanjs.com/
+
+做图表：
+Rgraph:
+http://roopons.com.au/wp-content/plugins/viral-optins/js/rgraph/
+(学习几个图形库，先试着用用)
+
+------------------------
+6. Canvas处理图像
+
+下一个课程

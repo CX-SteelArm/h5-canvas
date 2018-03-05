@@ -1,4 +1,4 @@
--------------------
+﻿-------------------
 fillStyle的类型可以是：(strokeStyle同样也可以有这些东西)
 	颜色（color）
 	渐变色（gradient）
@@ -37,3 +37,6 @@ img.onload = function(){}
 创建画布：
 var canvas = document.createElement('canvas');
 var newcxt = canvas.getContext('2d');
+-------------------
+
+demo留到学完第三部分再做

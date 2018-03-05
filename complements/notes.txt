@@ -1,0 +1,42 @@
+----------------------
+增补内容
+----------------------
+1. 阴影（4个函数）
+
+cxt.shadowColor = color;
+cxt.shadowOffsetX = number;
+cxt.shadowOffsetY = number;
+cxt.shadowBlur = number;
+
+----------------------
+2. globalAlpha（全局不透明度）和globalCompositeOperatio
+
+cxt.globalAlpha = number; 取值0-1，设置不透明度，默认为1
+
+cxt.globalCompositeOperation = string; 有11种取值，可以指定图形的叠加规则
+
+source-over source-atop source-in source-out
+destination-over destination-atop destination-in destination-out
+lighter copy xor
+
+使用lighter、copy、xor等可以制作出比较好看的效果。
+
+----------------------
+3. 路径的剪辑(clip)类似scissor
+
+cxt.clip();
+
+----------------------
+4. 判断点是否处在路径中（isPointInPath）（在碰撞检测的时候可能会有用）
+
+isPointInPath(x, y);
+
+var x = e.clientX - canvas.getBoundRect().left;
+var y = e.clientY - canvas.getBoundRect().top;
+
+是标准的获取x, y位置的代码
+
+----------------------
+5. 非零环绕原则（如果一个封闭区域中能找到一条线，与这条线相交的路径的绘制方向不能互相抵消，则此区域将被fill）
+
+可以依据此原理制作圆环和剪纸效果。
