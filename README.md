@@ -1,6 +1,6 @@
 html5-canvas学习记录
 ==============
-
+----------------------
 2018-02-26 17-25-18 创建ballclock文件夹和02-26-18 17-25-18.html及相关文件
 
 ----------------------
@@ -11,11 +11,11 @@ html5-canvas学习记录
 
 			-> 创建basicDraw文件夹，学习慕课网canvas系列课程第二讲
 			
-			-> 在./h5-canvas根目录下添加了gcanvasfile.lua文件，用于快速生成一个空白的canvas工程（包含html文件和js文件）
+			-> 在./h5-canvas根目录下添加了`gcanvasfile.lua`文件，用于快速生成一个空白的canvas工程（包含html文件和js文件）
 			
-			运行该文件生成了02-28-18 13-20-35.html和02-28-18 13-20-35-canvas.js，加入basicDraw文件夹。
+			运行该文件生成了`02-28-18 13-20-35.html`和`02-28-18 13-20-35-canvas.js`，加入basicDraw文件夹。
 			
-			在basicDraw文件夹添加notes.txt文件做笔记。
+			在basicDraw文件夹添加`notes.txt`文件做笔记。
 			
 			-> 学习了基本线条和矩形的绘制
 ----------------------			
