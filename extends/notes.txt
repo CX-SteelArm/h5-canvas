@@ -51,7 +51,7 @@ http://artisanjs.com/
 做图表：
 Rgraph:
 http://roopons.com.au/wp-content/plugins/viral-optins/js/rgraph/
-(学习几个图形库，先试着用用)
+(学习几个图形库，先试着用用看)
 
 ------------------------
 6. Canvas处理图像
