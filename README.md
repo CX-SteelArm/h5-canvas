@@ -48,9 +48,10 @@ html5-canvas学习记录
 			-> 学习增加的内容，创建complements文件夹
 			
 			-> 完成globalCompositeOperation测试
-
+![](https://github.com/CX-SteelArm/h5-canvas/blob/master/fontTest/font-test.gif)
 ----------------------
 2018-03-05 
 
 			-> 完成恐怖房间工程和阴影demo
+![](https://github.com/CX-SteelArm/h5-canvas/blob/master/complements/scaryroom.gif)
 ----------------------
