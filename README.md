@@ -37,7 +37,7 @@ html5-canvas学习记录
 			-> 完成字体渲染的学习
 			
 			-> 设置新工程fontTest，打算做一个字体演示，使用Web安全字体。
-![]https://github.com/CX-SteelArm/h5-canvas/blob/master/bezierCurve/beziercruve.gif
+![](https://github.com/CX-SteelArm/h5-canvas/blob/master/bezierCurve/beziercruve.gif)
 ----------------------
 2018-03-04 完成字体工程演示
 
