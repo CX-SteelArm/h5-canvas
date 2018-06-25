@@ -9,7 +9,7 @@ cxt.shadowOffsetY = number;
 cxt.shadowBlur = number;
 
 ----------------------
-2. globalAlpha（全局不透明度）和globalCompositeOperatio
+2. globalAlpha（全局不透明度）和globalCompositeOperation
 
 cxt.globalAlpha = number; 取值0-1，设置不透明度，默认为1
 

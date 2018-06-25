@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Canvas For Test</title>    
+    <style>
+        body{
+            background: #ddd;
+        }
+        .floatingControls{
+            position: absolute;
+            left: 175px;
+            top: 300px;
+        }
+        #canvas{
+            background: #fff;
+            border: thin solid #aaa;
+        }
+        #video{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <video src="fortest.mp4" controls id="video"></video>
+    <canvas id="canvas" width="480" height="270">Your browser can not support canvas.</canvas>
+    <div id="controls" class="floatingControls">
+        <input type="button" id="controlButton" value="Play"/>
+        <input type="checkbox" id="colorCheckbox" checked/>Color
+        <input type="checkbox" id="magicCheckbox"/>Magic
+        <input type="checkbox" id="flipCheckbox"/>Flip
+    </div>
+    <script type="text/javascript" src="1529292298.js"></script>
+</body>
+</html>
+    

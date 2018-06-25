@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Canvas For Test</title>    
+    <style>
+        body{
+            background: #cdcdcd;
+        }
+        .controls{
+            position: absolute;
+            left: 150px;
+            top: 10px;
+            font: 12px Arial;
+        }
+        #canvas{
+            position: absolute;
+            left: 0px;
+            top: 20px;
+            margin: 20px;
+            border: thin inset rgba(100, 150, 230, 0.8);
+            background: #efefef;
+        }
+        #animateButton{
+            margin-left: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" id="animateButton" value="Animate"/>
+    <canvas width="420" height="100" id="canvas">Your browser can not support canvas.</canvas>
+    <div id="motionControls" class="controls">
+        <div id="motionRadios">
+            <input type="radio" name="motion" id="linearRadio" checked/>Linear
+            <input type="radio" name="motion" id="easeInRadio"/>Ease In
+            <input type="radio" name="motion" id="easeOutRadio"/>Ease Out
+            <input type="radio" name="motion" id="easeInOutRadio"/>Ease In/Out
+        </div>
+    </div>
+
+    <script type="text/javascript" src="animationTimer.js"></script>
+    <script type="text/javascript" src="sprite.js"></script>
+    <script type="text/javascript" src="1529502102.js"></script>
+</body>
+</html>
+    
