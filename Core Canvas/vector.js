@@ -51,6 +51,10 @@ var Projection = function(min, max){
 
 Projection.prototype = {
     overlaps: function(projection){
-        return this.max > projection.min && projection.max > this.min;
+        if(this.max > projection.min && projection.max > this.min){
+            return Math.min(Math.abs(this.max - projection.min), Math.abs(this.min - projection.max));
+        }else{
+            return 0;
+        }
     }
 };

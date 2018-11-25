@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ungame</title>
+    <link rel="stylesheet" type="text/css" href="ungame.css" />
+</head>
+<body>
+    <!-- game canvas -->
+    <canvas id="gameCanvas" width="550" height="750">Canvas not supported</canvas>
+    
+    <!-- loading toast -->
+    <div id="loadingToast" class="toast">
+        <span id="loadingToastTitle" class="title">The ungame</span>
+
+        <span id="loadingToastBlurb" class="blurb">
+            <p>This game is an ungame, sort of like the undead: The undead are not really dead, and this is not really a game; However, it implements essential functionality pertient to most games.</p>
+            <p>The ungame comes with:</p>
+            <ul>
+                <li>This loading screen</li>
+                <li>Asset management</li>
+                <li>Music and Sounds</li>
+                <li>A scrolling background with parallax</li>
+                <li>Lives indicator(upper right corner)</li>
+                <li>Score indicator(appears when the ungame starts)</li>
+                <li>High score functionality</li>
+                <li>Key processing(including throttling)</li>
+                <li>Pause(press 'p' key once the ungame starts)</li>
+                <li>Auto-Pause(when the window loses focus)</li>
+            </ul>
+            <p>The ungame is implemented with a simple game engine</p>
+        </span>
+
+        <span id="loadButtonSpan">
+            <input type="button" id="loadButton" value="Load Game..." autofocus="true">
+            <span id="loadingMessage">Loading...</span>
+        </span>
+        <div id="progressDiv"></div>
+    </div>
+
+    <!-- Scores -->
+    <div id="scoreToast" class="toast"></div>
+
+    <!-- Lives -->
+    <canvas id="livesCanvas" width="90" height="40">Canvas not supported</canvas>
+
+    <!-- Puased -->
+    <div id="pausedToast" class="toast">
+        <p class="title" style="margin-left: 45px;">Paused</p>
+        <p>Click anywhere to start</p>
+    </div>
+    
+    <!-- Game Over -->
+    <div id="gameOverToast" class="toast">
+        <p class="title">Game Over</p>
+        <p><input id="clearHighScoresCheckbox" type="checkbox" />clear high scores</p>
+        <input type="button" id="newGameButton" value="new game" autofocus="true" />
+    </div>
+
+    <!-- High Scores -->
+    <p id="highScoreParagraph">
+        <span id="highScoreToast" width="400" style="display: none">
+            <p class="title">High score!</p>
+            <p>What's your name?</p>
+            <input type="text" id="nameInput" autofocus="true">
+            <input type="button" id="addMyScoreButton" value="add my score" disabled="true">
+            <input type="button" id="newGameFromHighScoresButton" value="newgame">
+
+            <p class="title" id="previousHighScoresTitle" display="none">Previous High Scores</p>
+        
+            <!-- in ungame.js -->
+            <ol id="highScoreList"></ol>
+        </span>
+    </p>
+
+    <!-- Lose Life -->
+    <div id="loseLifeToast" class="toast">
+        <input type="button" id="loseLifeButton" value="lose a life" autofocus="true" />
+    </div>
+
+    <!-- Sounds -->
+    <audio id="pop" preload="auto">
+        <source src="pop.ogg" type="audio/ogg" />
+        <source src="pop.mp3" type="audio/mp3" />
+    </audio>
+
+    <audio id="whoosh" preload="auto">
+        <source src="whoosh.ogg" type="audio/ogg" />
+        <source src="whoosh.mp3" type="audio/mp3" />
+    </audio>
+
+    <!-- requestNextAni...js -->
+    <!-- progressbar.js -->
+    <!-- gameEngine.js -->
+    <!-- ungame.js -->
+</body>
+</html>

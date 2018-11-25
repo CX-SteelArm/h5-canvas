@@ -16,7 +16,14 @@ var canvas = document.getElementById("canvas"),
 
     mousedown = {x: 0, y: 0},
     lastdrag = {x: 0, y: 0},
-    shapeBeingDragged = undefined;
+    shapeBeingDragged = undefined,
+
+    lastTime = undefined,
+    velocity = {x: 350, y: 190},
+    lastVelocity = {x: 350, y: 190},
+    STICK_DELAY = 500,
+    stuck = false,
+    showInstructions = true;
 
 // functions
 function windowToCanvas(x, y){
@@ -34,6 +41,43 @@ function drawShapes(){
     });
 }
 
+function stick(mtv){
+    var dx, dy, velocityMagnitude, point;
+
+    if(mtv.axis === undefined){
+        point = new Point();
+        velocityMagnitude = Math.sqrt(Math.pow(velocity.x, 2) + Math.pow(velocity.y, 2));
+        point.x = velocity.x / velocityMagnitude;
+        point.y = velocity.y / velocityMagnitude;
+        mtv.axis = point;
+    }
+
+    dx = -mtv.axis.x * mtv.overlap;
+    dy = -mtv.axis.y * mtv.overlap;
+
+    // 要计算所有的axis，不只是circle的axis
+    if(dx * velocity.x > 0){
+        dx = -dx;
+    }
+    if(dy * velocity.y > 0){
+        dy = -dy;
+    }
+
+    setTimeout(function(){
+        shapeBeingDragged.move(dx, dy);
+    }, STICK_DELAY);
+
+    lastVelocity.x = velocity.x;
+    lastVelocity.y = velocity.y;
+    velocity.x = velocity.y = 0;
+
+    stuck = true;
+}
+
+function collisionDetected(mtv){
+    return mtv.axis !== undefined || mtv.overlap !== 0;
+}
+
 function detactCollisions(){
     var textY = 30,
         numShapes = shapes.length,
@@ -45,10 +89,10 @@ function detactCollisions(){
             shape = shapes[i];
             if(shape !== shapeBeingDragged){
                 mtv = shapeBeingDragged.collideWith(shape);
-                if(mtv.overlap !== 0){
-                    context.fillStyle = shape.fillStyle;
-                    context.fillText("collision", 20, textY);
-                    textY += 40;
+                if(collisionDetected(mtv)){
+                    if(!stuck){
+                        stick(mtv);
+                    }
                 }
             }
         }
@@ -58,41 +102,49 @@ function detactCollisions(){
 // event handler
 canvas.onmousedown = function(e){
     var location = windowToCanvas(e.clientX, e.clientY);
+
+    if(showInstructions){
+        showInstructions = false;
+    }
+    velocity.x = lastVelocity.x;
+    velocity.y = lastVelocity.y;
+
+    shapeBeingDragged = undefined;
+    stuck = false;
     shapes.forEach(function(shape){
         if(shape.isPointInPath(context, location.x, location.y)){
             shapeBeingDragged = shape;
-            mousedown.x = location.x;
-            mousedown.y = location.y;
-            lastdrag.x = location.x;
-            lastdrag.y = location.y;
         }
     });
 };
 
-canvas.onmousemove = function(e){
-    var location,
-        dragVector;
-
-    if(shapeBeingDragged){
-        location = windowToCanvas(e.clientX, e.clientY);
-        dragVector = {
-            x: location.x - lastdrag.x,
-            y: location.y - lastdrag.y,
-        };
-        shapeBeingDragged.move(dragVector.x, dragVector.y);
-
-        lastdrag.x = location.x;
-        lastdrag.y = location.y;
-
-        context.fillStyle = "rgba(188, 188, 199, 0.6)";
-        context.fillRect(0, 0, canvas.width, canvas.width);
-        drawShapes();
-        detactCollisions();
+// animation
+function animate(time){
+    var elapsedTime;
+    time = +new Date();
+    if(lastTime === 0){
+        if(time !== undefined){
+            lastTime = time;
+        }
+        window.requestAnimationFrame(animate);
     }
-};
 
-canvas.onmouseup = function(e){
-    shapeBeingDragged = undefined;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    if(shapeBeingDragged !== undefined){
+        elapsedTime = parseFloat(time - lastTime) / 1000;
+        shapeBeingDragged.move(velocity.x * elapsedTime, velocity.y * elapsedTime);
+    }
+
+    detactCollisions();
+    drawShapes();
+    lastTime = time;
+
+    if(showInstructions){
+        context.fillStyle = "cornflowerblue";
+        context.font = "24px Arial";
+        context.fillText("Click on a shape to animate it", 20, 40);
+    }
+    window.requestAnimationFrame(animate);
 }
 
 // initialization
@@ -127,10 +179,4 @@ context.shadowOffsetX = 2;
 context.shadowOffsetY = 2;
 context.font = "38px Arial";
 
-drawShapes();
-
-context.save();
-context.fillStyle = 'cornflowerblue';
-context.font = '24px Arial';
-context.fillText("Drag shapes over each other", 10, 25);
-context.restore();
+window.requestAnimationFrame(animate);

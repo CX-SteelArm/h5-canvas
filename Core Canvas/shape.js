@@ -7,21 +7,48 @@ var Shape = function(){
 };
 
 Shape.prototype = {
+    // 与其他形状碰撞
     collideWith: function(shape){
         var axes = this.getAxes().concat(shape.getAxes());
         return !this.separationOnAxes(axes, shape);
     },
+    // 在轴上的投影有重合
+    // separationOnAxes: function(axes, shape){
+    //     for(var i=0; i < axes.length; i++){
+    //         var axis = axes[i],
+    //             projection1 = shape.project(axis),
+    //             projection2 = this.project(axis);
+    //         if(! projection1.overlaps(projection2)){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // },
+    // 在轴上投影的最小分离向量
+    minimumTranslationVector: function(axes, shape){
+        var minimumOverlap = 10000,
+            overlap,
+            axisWithSmallsetOverlap;
 
-    separationOnAxes: function(axes, shape){
-        for(var i=0; i < axes.length; i++){
-            var axis = axes[i],
-                projection1 = shape.project(axis),
-                projection2 = this.project(axis);
-            if(! projection1.overlaps(projection2)){
-                return true;
+        for(var i=0; i<axes.length; i++){
+            axis = axes[i];
+            projection1 = shape.project(axis);
+            projection2 = this.project(axis);
+            overlap = projection1.overlaps(projection2);
+
+            if(overlap === 0){
+                return {
+                    axis: undefined,
+                    overlap: 0,
+                };
+            }else{
+                if(overlap < minimumOverlap){
+                    minimumOverlap = overlap;
+                    axisWithSmallsetOverlap = axis;
+                }
             }
         }
-        return false;
+        return new MinimumTranslationVector(axisWithSmallsetOverlap, minimumOverlap);
     },
     // 投射
     project: function(axis){
@@ -63,12 +90,19 @@ Shape.prototype = {
     },
 };
 
-// Polygon
+// Point
 var Point = function(x, y){
     this.x = x;
     this.y = y;
-}
+};
 
+// MinimumTranslationVector
+var MinimumTranslationVector = function(axis, overlap){
+    this.axis = axis;
+    this.overlap = overlap;
+};
+
+// Polygon
 var Polygon = function(){
     this.points = [];
     this.strokeStyle = 'blue';
@@ -78,16 +112,10 @@ var Polygon = function(){
 Polygon.prototype = Object.create(new Shape());
 
 Polygon.prototype.collideWith = function(shape){
-    var axes = shape.getAxes(),
-        thisaxes = this.getAxes();
-
-    if(axes === undefined){
-        return polygonCollidesWithCircle(this, shape)
+    if(shape.radius !== undefined){
+        return polygonCollidesWithCircle(this, shape);
     }else{
-        if(thisaxes !== undefined){
-            axes = axes.concat(this.getAxes());
-        }
-        return !this.separationOnAxes(axes, shape);
+        return polygonCollidesWithPolygon(this, shape);
     }
 }
 
@@ -164,12 +192,8 @@ var Circle = function(x, y, radius){
 Circle.prototype = Object.create(new Shape());
 
 Circle.prototype.collideWith = function(shape){
-    var point, length, min = 10000, v1, v2,
-        edge, perpendicular, normal, axes = shape.getAxes(), diatance;
-
-    if(axes === undefined){
-        distance = Math.sqrt(Math.pow(shape.x-this.x, 2) + Math.pow(shape.y-this.y, 2));
-        return distance < Math.abs(this.radius + shape.radius);
+    if(shape.radius !== undefined){
+        return circleCollidesWithCircle(this, shape);
     }else{
         return polygonCollidesWithCircle(shape, this);
     }
@@ -198,6 +222,34 @@ Circle.prototype.createPath = function(context){
     context.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
 }
 
+// Collision between two shapes
+function polygonCollidesWithPolygon(p1, p2){
+    var mtv1 = p1.minimumTranslationVector(p1.getAxes(), p2),
+        mtv2 = p2.minimumTranslationVector(p2.getAxes(), p1);
+
+    return mtv1.overlap < mtv2.overlap ? mtv1 : mtv2;
+}
+
+function circleCollidesWithCircle(c1, c2){
+    var distance = Math.sqrt(Math.pow(c1.x - c2.x, 2) + Math.pow(c1.y - c2.y, 2)),
+        overlap = Math.abs(c1.radius + c2.radius) - distance;
+    return overlap < 0 ? new MinimumTranslationVector(undefined, 0) : new MinimumTranslationVector(undefined, overlap);
+}
+
+function polygonCollidesWithCircle(polygon, circle){
+    var min = 10000,
+        v1,
+        v2,
+        axes = polygon.getAxes(),
+        closestPoint = getPolygonPointClosestToCircle(polygon, circle);
+        
+        v1 = new Vector(circle.x, circle.y);
+        v2 = new Vector(closestPoint.x, closestPoint.y);
+
+        axes.push(v1.subtract(v2).normalize());
+        return polygon.minimumTranslationVector(axes, circle);
+}
+
 function getPolygonPointClosestToCircle(polygon, circle){
     var min = 10000,
         length,
@@ -213,17 +265,5 @@ function getPolygonPointClosestToCircle(polygon, circle){
     }
     return closestPoint;
 }
- 
-function polygonCollidesWithCircle(polygon, circle){
-    var min = 10000,
-        v1,
-        v2,
-        axes = polygon.getAxes(),
-        closestPoint = getPolygonPointClosestToCircle(polygon, circle);
-        
-        v1 = new Vector(circle.x, circle.y);
-        v2 = new Vector(closestPoint.x, closestPoint.y);
 
-        axes.push(v1.subtract(v2).normalize());
-        return !polygon.separationOnAxes(axes, circle);
-}
+

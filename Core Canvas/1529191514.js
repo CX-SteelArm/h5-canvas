@@ -1,3 +1,4 @@
+// 测试cxt.drawImage的几种形式
 var canvas, cxt;
 
 window.onload = function(){

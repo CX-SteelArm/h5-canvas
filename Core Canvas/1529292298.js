@@ -2,6 +2,7 @@ var canvas = document.getElementById("canvas"),
 // 离屏canvas
     offscreenCanvas = document.createElement("canvas"),
     offscreenContext = offscreenCanvas.getContext("2d"),
+    
     context = canvas.getContext("2d"),
     video = document.getElementById("video"),
     controlButton = document.getElementById("controlButton"),
